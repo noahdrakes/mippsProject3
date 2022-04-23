@@ -1,3 +1,10 @@
+.data   
+    userInput: .space 1002
+    newLineCharacter: .asciiz "\n"
+    array4characters: .space 4
+    invalidInputString: .asciiz "Not recognized"
+.text
+
 main:
 
 #   $s0 = M
@@ -17,11 +24,16 @@ main:
     addi $s1, $s0, -10 #M is in $s1
 
 
+    # sub_a checks for valid # of characters
     sub_a:
 
 
 
 
+        j sub_b
+
+
+    # converts
     sub_b:
 
 
