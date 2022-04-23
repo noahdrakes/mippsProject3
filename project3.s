@@ -28,9 +28,20 @@ main:
     li $a1, 1001             #set amount of characters (bytes)
     syscall                 #execute previous instruction
 
+    #   allocate 4 bytes for stack pointer
+    addi $sp, $sp, -4
+    #   store user input string to address 0 of stack pointer
+    sw $a0, 0($sp)
+
+
 
     # sub_a checks for valid # of characters
     sub_a:
+
+        # loads user input address to stack pointer
+        lw $t0, 0($sp)
+        #store 4 bytes to stack pointer
+        addi $sp, $sp, 4
         
 
 
