@@ -12,3 +12,6 @@ main:
 
     div $t8, $t9 #calulcation
     mfhi $t0 # n value 
+
+    addi $s0, $t0, 26 #N is in $s0 add 26 to modulus
+    addi $s1, $s0, -10 #M is in $s1
