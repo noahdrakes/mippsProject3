@@ -1,7 +1,7 @@
 .data   
     userInput: .space 1002
     newLineCharacter: .asciiz "\n"
-    array4characters: .space 4
+    array4characters: .space 1002
     invalidInputString: .asciiz "-"
 .text
 
@@ -38,19 +38,34 @@ main:
     # sub_a checks for valid # of characters
     sub_a:
 
-        # loads user input address to stack pointer
+        #   loads user input address to stack pointer
         lw $t0, 0($sp)
-        #store 4 bytes to stack pointer
+        #   store 4 bytes to stack pointer
         addi $sp, $sp, 4
         
 
 
 
-        j sub_b
+        #   loop to process entire string
+
+        li $t1, 0
+
+        loop:
+            beq $t1, 1000, exitProgram
+            
 
 
-    # converts
-    sub_b:
+
+            
+
+            j sub_b
+
+
+            # converts
+            sub_b:
+
+        addi $t1, $t1, 1
+        j loop
 
 
 
