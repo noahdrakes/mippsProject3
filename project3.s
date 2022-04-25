@@ -143,6 +143,14 @@ main:
                 beq $t6, 10, check4CharactersArray   #if character is new line character character -> end of string, determine if its valid
                 beq $t6, 0, check4CharactersArray   #if character is null terminating character -> end of string, determine if its valid
 
+                sb $t6, array4characters($t4)                       #store valid characters in new array                   
+    
+                
+                addi $t4, $t4, 1        #increment loop
+                addi $a3, $a3, 1        #increment index for array of user input characters
+                lb $t6, 0($a3)          #get next character from four bit array
+                
+                j loopStoreRealValues
             
             # lb $t0, 0($t1)
 
