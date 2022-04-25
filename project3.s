@@ -155,7 +155,7 @@ main:
                 beq $t6, 0, check4CharactersArray   #if character is null terminating character -> end of string, determine if its valid
                 
 
-                sb $t6, array4characters($t4)                       #store valid characters in new array                   
+                sb $t6, realSubstring($t4)                       #store valid characters in new array                   
     
                 
                 addi $t4, $t4, 1        #increment loop
