@@ -4,6 +4,7 @@
     array4characters: .space 1002
     realSubstring: .space 4
     invalidInputString: .asciiz "-"
+    comma: .asciiz ","
 .text
 
 main:
@@ -85,8 +86,13 @@ main:
             
             validInput: 
                 li $v0, 1       #selecting print function for syscall
-                move $a0, $s7  #selecting return register to print out
+                move $a0, $s7  #selecting return register to print sum of substring
                 syscall
+
+                li $v0, 4       #selecting print function for syscall
+                la $a0, comma  #selecting return register to print comma
+                syscall
+
                 j exitProgram
 
 
