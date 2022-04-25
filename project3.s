@@ -162,6 +162,15 @@ main:
 
                 beq $t6, 11, skip1   #if character is line tab -> skip
                 beq $t6, 9, skip1    #if character is char tab -> skip
+                beq $t6, 32, skip1   #if character is space    -> skip
+
+                j invalidInput
+
+            skip1: 
+                addi $t1, $t1, 1
+                lb $t6, 0($t1)          #get next character from four bit array
+
+                j checkRemainingTrailingCharacters
             
             # lb $t0, 0($t1)
 
