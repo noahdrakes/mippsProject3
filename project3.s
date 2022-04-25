@@ -237,6 +237,23 @@ main:
                 blt $t6, 97, invalidInput
                 addi $t2, $t6, -87
                 j exponentLoop
+            exponentLoop:
+                # moving $t4 and $t5 values
+                # $t4 = # of Valid Values
+                # $t5 = counter (starts from 0 and goes to $t4)
+
+                # moving these values to empty 's' registers
+                move $s5, $t5 
+                move $s4, $t4
+
+                #value to store exponent value
+                li $s8, 0
+
+                # Formula to store route index to correct exponent
+                #       Exponent = (# of Values) - (index) - 1
+
+                sub $s8, $s4, $t5
+                addi $s8, $s8, -1
 
 
 
