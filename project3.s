@@ -54,7 +54,7 @@ main:
             # load address for the character array
             la $t2, array4characters
             #store that address to the stack pointer
-            sb $t2, 0($sp)
+            sw $t2, 0($sp)
 
             loopParseSubstring:
                 # load one character (one byte) to reg $t1
@@ -84,6 +84,10 @@ main:
                 j exitProgram
             
             validInput: 
+                li $v0, 1       #selecting print function for syscall
+                move $a0, $s7  #selecting return register to print out
+                syscall
+                j exitProgram
 
 
             j loopParseSubstring
@@ -173,7 +177,6 @@ main:
 
                 beq $t6, 10, check4CharactersArray   #if character is new line character character -> end of string, determine if its valid
                 beq $t6, 0, check4CharactersArray   #if character is null terminating character -> end of string, determine if its valid
-                beq $t6, 0, check4CharactersArray   #if character is null terminating character -> end of string, determine if its valid
                 beq $t6, 59, check4CharactersArray  #if character is semicolon -> end of string
 
 
@@ -209,7 +212,7 @@ main:
         li $s7, 0
 
         loop2:
-            beq $t5, $t4, printAnswer     #once loop ends print answer
+            beq $t5, $t4, validInput     #once loop ends print answer
             lb $t6, realSubstring($t5)       #get character from (potentially) valid character array
 
             beq $t6, 11, invalidInput   #if character is line tab -> jump to invalid Input
@@ -287,7 +290,7 @@ main:
                 add $s7, $s7, $t2       #   sum everything
 
                 addi $t5, $t5, 1        #   increment index
-                addi $a3, $a3, 1        #   increment array index 
+                addi $t1, $t1, 1        #   increment array index 
                 move $v1, $t0           # stores sum in return register
                 j loop2
                 
