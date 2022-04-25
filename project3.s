@@ -192,6 +192,17 @@ main:
             j exitProgram
             
             # lb $t0, 0($t1)
+        check4CharactersArray:
+        li $t5, 0          #index of loop
+
+        li $t2, 0           #reg for storing the correct decimal value for characters
+
+        #range for CAPITAL LETTERS 
+        addi $s3, $s1, 65
+
+        #range for LOWERCASE LETTERS
+        addi $t3, $s1, 97
+
 
         
 
