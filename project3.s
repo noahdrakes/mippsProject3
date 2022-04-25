@@ -89,7 +89,7 @@ main:
     sub_b:
         # store semi-colon
         sb $t1, array4characters($t3)
-        
+
         li $t0, 0       #reg 
         li $t1, 0
 
@@ -125,6 +125,20 @@ main:
             addi $t1, $t1, 1 #increment index for array of user input characters
             j removeSpacesAndTabs
 
+
+         storeRealValues:  
+            li $t4, 0                   #increment for store real values
+            #li $t3, 0                   #load address to store array of 4 bytes for the 4 real characters
+
+            loopStoreRealValues:  
+                beq $t4, 4, checkRemainingTrailingCharacters        #check if increment is less than 4
+
+                #       if it sees a space, it jumps to trailing characters
+
+                beq $t6, 11, checkRemainingTrailingCharacters   #if character is line tab -> checkRemainingCharacters
+            
+            
+            
             # lb $t0, 0($t1)
 
         
