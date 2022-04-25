@@ -83,15 +83,27 @@ main:
 
     # converts integers to valid characters
     sub_b:
-        li $t0, 0
+        li $t0, 0       #reg 
         li $t1, 0
 
-        lw $t1, 0($sp)
+        lw $t1, 0($sp)  #loading address of character array from stack pointer
 
 
         convert_To_Integers:
-            lb $t0, 0($t1)
+
+            #value for storing single byte
+            li $t6, 0
+
+            #increment for removeSpaces and Tabs
+            li $t5, 0 
+            
+            # lb $t0, 0($t1)
+
         
+
+
+
+
 
 
     exitProgram:
