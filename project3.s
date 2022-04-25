@@ -89,9 +89,13 @@ main:
                 move $a0, $s7  #selecting return register to print sum of substring
                 syscall
 
-                li $v0, 4       #selecting print function for syscall
-                la $a0, comma  #selecting return register to print comma
-                syscall
+                beq $t7, 5 , exitProgram
+
+                printComma:
+                    li $v0, 4       #selecting print function for syscall
+                    la $a0, comma  #selecting return register to print comma
+                    syscall
+
 
                 j exitProgram
 
@@ -165,8 +169,8 @@ main:
                 beq $t6, 32, checkRemainingTrailingCharacters   #if character is space    -> checkRemainingCharacters
 
                 beq $t6, 59, check4CharactersArray  #if character is semicolon -> end of string
-                beq $t6, 10, check4CharactersArray   #if character is new line character character -> end of string, determine if its valid
-                beq $t6, 0, check4CharactersArray   #if character is null terminating character -> end of string, determine if its valid
+                beq $t6, 10, lastSubstring   #if character is new line character character -> end of string, determine if its valid
+                beq $t6, 0, lastSubstring   #if character is null terminating character -> end of string, determine if its valid
                 
 
                 sb $t6, realSubstring($t4)                       #store valid characters in new array                   
@@ -181,8 +185,8 @@ main:
             checkRemainingTrailingCharacters:
                 beq $t5, 1000, check4CharactersArray #loop condition -> once program has reached the 1000th character
 
-                beq $t6, 10, check4CharactersArray   #if character is new line character character -> end of string, determine if its valid
-                beq $t6, 0, check4CharactersArray   #if character is null terminating character -> end of string, determine if its valid
+                beq $t6, 10, lastSubstring   #if character is new line character character -> end of string, determine if its valid
+                beq $t6, 0, lastSubstring   #if character is null terminating character -> end of string, determine if its valid
                 beq $t6, 59, check4CharactersArray  #if character is semicolon -> end of string
 
 
