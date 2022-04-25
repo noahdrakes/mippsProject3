@@ -233,6 +233,10 @@ main:
                 blt $t6, 65, invalidInput
                 addi $t2, $t6, -55
                 j exponentLoop
+             lowercaseLetters:
+                blt $t6, 97, invalidInput
+                addi $t2, $t6, -87
+                j exponentLoop
 
 
 
