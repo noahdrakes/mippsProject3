@@ -215,6 +215,15 @@ main:
 
             beq $t6, 11, invalidInput   #if character is line tab -> jump to invalid Input
             beq $t6, 9, invalidInput    #if character is char tab -> jump to invalid input
+            beq $t6, 32, invalidInput   #if character is space    -> jump to invalid input
+
+
+            #logic for converting ASCII values to decimal
+            
+            ble $t6, 57, decimal
+            blt $t6, $s3, capitalLetters
+            blt $t6, $t3, lowercaseLetters
+            ble $t6, 127, invalidInput
 
 
 
