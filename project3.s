@@ -97,6 +97,17 @@ main:
             #increment for removeSpaces and Tabs
             li $t5, 0 
             
+
+            removeSpacesAndTabs:
+            beq $t5, 1000, storeRealValues  #check if reached end of input
+            lb $t6, 0($t1)      #load single byte from user input into register $t6
+
+
+            #       checks if there are any spaces
+
+            beq $t6, 11, skip   #if character is line tab -> skip
+            beq $t6, 9, skip    #if character is char tab -> skip
+            beq $t6, 32, skip   #if character is space    -> skip
             # lb $t0, 0($t1)
 
         
