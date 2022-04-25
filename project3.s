@@ -2,6 +2,7 @@
     userInput: .space 1002
     newLineCharacter: .asciiz "\n"
     array4characters: .space 1002
+    realSubstring: .space 4
     invalidInputString: .asciiz "-"
 .text
 
@@ -140,6 +141,7 @@ main:
                 beq $t6, 9, checkRemainingTrailingCharacters    #if character is char tab -> checkRemainingCharacters
                 beq $t6, 32, checkRemainingTrailingCharacters   #if character is space    -> checkRemainingCharacters
 
+                beq $t6, 59, check4CharactersArray  #if character is semicolon -> end of string
                 beq $t6, 10, check4CharactersArray   #if character is new line character character -> end of string, determine if its valid
                 beq $t6, 0, check4CharactersArray   #if character is null terminating character -> end of string, determine if its valid
 
@@ -147,8 +149,8 @@ main:
     
                 
                 addi $t4, $t4, 1        #increment loop
-                addi $a3, $a3, 1        #increment index for array of user input characters
-                lb $t6, 0($a3)          #get next character from four bit array
+                addi $t1, $t1, 1        #increment index for array of user input characters
+                lb $t6, 0($t1)          #get next character from four bit array
                 
                 j loopStoreRealValues
             
