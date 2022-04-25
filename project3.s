@@ -55,7 +55,12 @@ main:
         sb $t2, 0($sp)
 
         loopFindFirstSubstring:
-            
+            # load one character (one byte) to reg $t1
+            lb $t1, 0($t0)
+
+            #check to see if current character is semicolon
+            #if it is jump to 
+            beq $t1, 59, sub_b
 
             
 
