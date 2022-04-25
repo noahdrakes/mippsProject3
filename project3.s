@@ -137,7 +137,12 @@ main:
 
                 beq $t6, 11, checkRemainingTrailingCharacters   #if character is line tab -> checkRemainingCharacters
             
-            
+                beq $t6, 9, checkRemainingTrailingCharacters    #if character is char tab -> checkRemainingCharacters
+                beq $t6, 32, checkRemainingTrailingCharacters   #if character is space    -> checkRemainingCharacters
+
+                beq $t6, 10, check4CharactersArray   #if character is new line character character -> end of string, determine if its valid
+                beq $t6, 0, check4CharactersArray   #if character is null terminating character -> end of string, determine if its valid
+
             
             # lb $t0, 0($t1)
 
