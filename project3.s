@@ -204,7 +204,17 @@ main:
         addi $t3, $s1, 97
 
 
-        
+        #CHANGE $TO SO $S7 FROM HER
+
+        #register for sum 
+        li $s7, 0
+
+        loop2:
+            beq $t5, $t4, printAnswer     #once loop ends print answer
+            lb $t6, realSubstring($t5)       #get character from (potentially) valid character array
+
+            beq $t6, 11, invalidInput   #if character is line tab -> jump to invalid Input
+            beq $t6, 9, invalidInput    #if character is char tab -> jump to invalid input
 
 
 
