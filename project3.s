@@ -281,6 +281,8 @@ main:
                     mult $s0, $t8
                     mflo $t9
                     mult $t9, $t2
+                    mflo $t2
+                    j sum
                 
 
 
