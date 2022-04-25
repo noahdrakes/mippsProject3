@@ -79,7 +79,11 @@ main:
 
 
 
-            
+
+    #   remember $t3 stores the amount of values in the current substring
+
+
+
 
     # converts integers to valid characters
     sub_b:
@@ -108,6 +112,16 @@ main:
             beq $t6, 11, skip   #if character is line tab -> skip
             beq $t6, 9, skip    #if character is char tab -> skip
             beq $t6, 32, skip   #if character is space    -> skip
+
+
+            j storeRealValues   #once first real value is detected jump to store real values 
+
+            skip:
+
+            addi $t5, $t5, 1 #increment loop index
+            addi $t1, $t1, 1 #increment index for array of user input characters
+            j removeSpacesAndTabs
+
             # lb $t0, 0($t1)
 
         
