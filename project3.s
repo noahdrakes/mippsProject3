@@ -43,37 +43,33 @@ main:
         #   restore 4 bytes to stack pointer
         addi $sp, $sp, 4
         
-        lb $t8, 0($t0)
+  
+
+        li $t2, 0               #counter reg
+
+        # allocate 4 bytes for stack pointer 
+        addi $sp, $sp, -4
+        # load address for the character array
+        la $t2, array4characters
+        #store that adress to the stack pointer
+        sb $t2, 0($sp)
+
+        loopFindFirstSubstring:
+            
+
+            
+
+
+
+
+
 
         
 
-        #   loop to process entire string
-        li $t1, 0
-        loop:
-            beq $t1, $zero, exitProgram
-            
-
-            #                                   #
-            #           PARSE STRING            #
-            #                                   #
-            loop1:
-                lb $t2, 0($t0)
-                beq $t2, 59, loop
-
-
-            j loop1 
-            
-
-            j sub_b
-
-
-            
-
-        addi $t1, $t1, 1
-        j loop
-
     # converts integers to valid characters
-        sub_b:
+    sub_b:
+        #filler filler
+        #filler filler
 
     exitProgram:
         li $v0, 10
@@ -85,4 +81,7 @@ main:
 
         # print register testing , putting at the bottom for 
         # debugging purposes
-        
+
+        # li $v0, 1       #selecting print function for syscall
+        # move $a0, $t8   #selecting return register to print out
+        # syscall
