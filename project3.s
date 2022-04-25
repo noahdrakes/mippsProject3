@@ -271,6 +271,11 @@ main:
                     mult $s0, $s0
                     mflo $t8
                     mult $t8, $t2
+                     mflo $t2
+                    j sum
+                exponent3:
+                    li $t8, 0
+                    li $t9, 0
                 
 
 
