@@ -78,6 +78,10 @@ main:
 
         sub_a_PRINT_VALUES:
             invalidInput:
+                li $v0, 4       #selecting print function for syscall
+                la $a0, invalidInputString  #selecting address of string
+                syscall
+                j exitProgram
             
             validInput: 
 
@@ -184,12 +188,7 @@ main:
                 lb $t6, 0($t1)          #get next character from four bit array
 
                 j checkRemainingTrailingCharacters
-
-        invalidInput:
-            li $v0, 4       #selecting print function for syscall
-            la $a0, invalidInputString  #selecting address of string
-            syscall
-            j exitProgram
+            
             
             # lb $t0, 0($t1)
         check4CharactersArray:
@@ -285,7 +284,7 @@ main:
                     j sum
                 
                 sum:
-                add $t0, $t0, $t2       #   sum everything
+                add $s7, $s7, $t2       #   sum everything
 
                 addi $t5, $t5, 1        #   increment index
                 addi $a3, $a3, 1        #   increment array index 
