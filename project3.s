@@ -153,6 +153,7 @@ main:
                 beq $t6, 59, check4CharactersArray  #if character is semicolon -> end of string
                 beq $t6, 10, check4CharactersArray   #if character is new line character character -> end of string, determine if its valid
                 beq $t6, 0, check4CharactersArray   #if character is null terminating character -> end of string, determine if its valid
+                
 
                 sb $t6, array4characters($t4)                       #store valid characters in new array                   
     
@@ -169,6 +170,7 @@ main:
                 beq $t6, 10, check4CharactersArray   #if character is new line character character -> end of string, determine if its valid
                 beq $t6, 0, check4CharactersArray   #if character is null terminating character -> end of string, determine if its valid
                 beq $t6, 0, check4CharactersArray   #if character is null terminating character -> end of string, determine if its valid
+                beq $t6, 59, check4CharactersArray  #if character is semicolon -> end of string
 
 
                 beq $t6, 11, skip1   #if character is line tab -> skip
