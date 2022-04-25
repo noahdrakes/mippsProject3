@@ -260,6 +260,13 @@ main:
                 beq $s8, 2, exponent2
                 beq $s8, 3, exponent3
 
+                exponent0:
+                    j sum
+                exponent1:
+                    mult $s0, $t2
+                    mflo $t2
+                    j sum
+
 
 
 
