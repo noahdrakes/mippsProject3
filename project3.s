@@ -87,6 +87,9 @@ main:
 
     # converts integers to valid characters
     sub_b:
+        # store semi-colon
+        sb $t1, array4characters($t3)
+        
         li $t0, 0       #reg 
         li $t1, 0
 
