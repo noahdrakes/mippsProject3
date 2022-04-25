@@ -154,6 +154,15 @@ main:
                 
                 j loopStoreRealValues
             
+            checkRemainingTrailingCharacters:
+                beq $t5, 1000, check4CharactersArray #loop condition -> once program has reached the 1000th character
+
+                beq $t6, 10, check4CharactersArray   #if character is new line character character -> end of string, determine if its valid
+                beq $t6, 0, check4CharactersArray   #if character is null terminating character -> end of string, determine if its valid
+
+                beq $t6, 11, skip1   #if character is line tab -> skip
+                beq $t6, 9, skip1    #if character is char tab -> skip
+            
             # lb $t0, 0($t1)
 
         
