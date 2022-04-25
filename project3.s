@@ -255,6 +255,11 @@ main:
                 sub $s8, $s4, $t5
                 addi $s8, $s8, -1
 
+                beq $s8, 0, exponent0
+                beq $s8, 1, exponent1
+                beq $s8, 2, exponent2
+                beq $s8, 3, exponent3
+
 
 
 
