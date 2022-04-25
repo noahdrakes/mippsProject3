@@ -225,6 +225,11 @@ main:
             blt $t6, $t3, lowercaseLetters
             ble $t6, 127, invalidInput
 
+            decimal:
+                blt $t6, 48, invalidInput
+                addi $t2, $t6, -48
+                j exponentLoop
+
 
 
 
