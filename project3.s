@@ -38,52 +38,49 @@ main:
     # sub_a checks for valid # of characters
     sub_a:
 
-        #   loads user input address to stack pointer
-        lw $t0, 0($sp)
-        #   restore 4 bytes to stack pointer
-        addi $sp, $sp, 4
-        
-  
+        sub_a_GET_USERINPUT_ADDRESS:
+            #   loads user input address to stack pointer
+            lw $t0, 0($sp)
+            #   restore 4 bytes to stack pointer
+            addi $sp, $sp, 4
+            
+    
 
-        li $t3, 0               #counter reg
+            li $t3, 0               #counter reg
 
-        # allocate 4 bytes for stack pointer 
-        addi $sp, $sp, -4
-        # load address for the character array
-        la $t2, array4characters
-        #store that adress to the stack pointer
-        sb $t2, 0($sp)
+            # allocate 4 bytes for stack pointer 
+            addi $sp, $sp, -4
+            # load address for the character array
+            la $t2, array4characters
+            #store that adress to the stack pointer
+            sb $t2, 0($sp)
 
-        loopFindFirstSubstring:
-            # load one character (one byte) to reg $t1
-            lb $t1, 0($t0)
+            loopParseSubstring:
+                # load one character (one byte) to reg $t1
+                lb $t1, 0($t0)
 
-            # check to see if current character is semicolon
-            #if it is jump to 
-            beq $t1, 59, sub_b
-            # check for end-line character
-            beq $t1, 10, sub_b
+                # check to see if current character is semicolon
+                #if it is jump to 
+                beq $t1, 59, sub_b
+                # check for end-line character
+                beq $t1, 10, sub_b
 
-            sb $t1, array4characters($t3)
+                sb $t1, array4characters($t3)
 
-            addi $t3, $t3, 1
-            addi $t0, $t0, 1
+                addi $t3, $t3, 1
+                addi $t0, $t0, 1
 
-            j loopFindFirstSubstring
+                j loopParseSubstring:
 
+        sub_a_PRINT_VALUES:
             
 
 
-
-
-
-
-        
+            
 
     # converts integers to valid characters
     sub_b:
-        #filler filler
-        #filler filler
+
 
     exitProgram:
         li $v0, 10
