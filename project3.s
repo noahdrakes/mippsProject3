@@ -284,6 +284,14 @@ main:
                     mflo $t2
                     j sum
                 
+                sum:
+                add $t0, $t0, $t2       #   sum everything
+
+                addi $t5, $t5, 1        #   increment index
+                addi $a3, $a3, 1        #   increment array index 
+                move $v1, $t0           # stores sum in return register
+                j loop2
+                
 
 
 
