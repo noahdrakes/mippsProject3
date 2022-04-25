@@ -45,7 +45,7 @@ main:
         
   
 
-        li $t2, 0               #counter reg
+        li $t3, 0               #counter reg
 
         # allocate 4 bytes for stack pointer 
         addi $sp, $sp, -4
@@ -58,13 +58,18 @@ main:
             # load one character (one byte) to reg $t1
             lb $t1, 0($t0)
 
-            #check to see if current character is semicolon
+            # check to see if current character is semicolon
             #if it is jump to 
             beq $t1, 59, sub_b
+            # check for end-line character
+            beq $t1, 10, sub_b
 
-            sb $t1, array4characters($t2)
+            sb $t1, array4characters($t3)
 
-            addi $t2, $t2, 0
+            addi $t3, $t3, 1
+            addi $t0, $t0, 1
+
+            j loopFindFirstSubstring
 
             
 
