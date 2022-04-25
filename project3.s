@@ -38,7 +38,7 @@ main:
     # sub_a checks for valid # of characters
     sub_a:
 
-        sub_a_GET_USERINPUT_ADDRESS:
+        sub_a_GET_USERINPUT_ADDRESS_AND_PARSE_STRING:
             #   loads user input address to stack pointer
             lw $t0, 0($sp)
             #   restore 4 bytes to stack pointer
@@ -65,21 +65,33 @@ main:
                 # check for end-line character
                 beq $t1, 10, sub_b
 
+                #store character in substring array
                 sb $t1, array4characters($t3)
 
                 addi $t3, $t3, 1
                 addi $t0, $t0, 1
 
-                j loopParseSubstring:
+                
+
+                j loopParseSubstring
 
         sub_a_PRINT_VALUES:
-            
+
 
 
             
 
     # converts integers to valid characters
     sub_b:
+        li $t0, 0
+        li $t1, 0
+
+        lw $t1, 0($sp)
+
+
+        convert_To_Integers:
+            lb $t0, 0($t1)
+        
 
 
     exitProgram:
