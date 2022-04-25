@@ -190,6 +190,7 @@ main:
                 beq $t6, 9, skip1    #if character is char tab -> skip
                 beq $t6, 32, skip1   #if character is space    -> skip
 
+
                 j invalidInput
 
             skip1: 
@@ -303,6 +304,13 @@ main:
 
 
 
+
+    lastSubstring:
+        # set $t7 to 5
+        # if $t7 is 5 then that is the last substring
+
+        li $t7, 5
+        j check4CharactersArray
 
 
 
