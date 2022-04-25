@@ -276,6 +276,11 @@ main:
                 exponent3:
                     li $t8, 0
                     li $t9, 0
+                    mult $s0, $s0
+                    mflo $t8
+                    mult $s0, $t8
+                    mflo $t9
+                    mult $t9, $t2
                 
 
 
