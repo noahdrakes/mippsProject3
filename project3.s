@@ -62,6 +62,10 @@ main:
             #if it is jump to 
             beq $t1, 59, sub_b
 
+            sb $t1, array4characters($t2)
+
+            addi $t2, $t2, 0
+
             
 
 
