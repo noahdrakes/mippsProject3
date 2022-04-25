@@ -53,7 +53,7 @@ main:
             addi $sp, $sp, -4
             # load address for the character array
             la $t2, array4characters
-            #store that adress to the stack pointer
+            #store that address to the stack pointer
             sb $t2, 0($sp)
 
             loopParseSubstring:
@@ -77,11 +77,17 @@ main:
                 j loopParseSubstring
 
         sub_a_PRINT_VALUES:
+            invalidInput:
+            
+            validInput: 
 
+
+            j loopParseSubstring
 
 
 
     #   remember $t3 stores the amount of values in the current substring
+    #   remember $T0 store the base address of the user input
 
 
 
@@ -90,8 +96,11 @@ main:
     sub_b:
         # store semi-colon
         sb $t1, array4characters($t3)
+        
+        #increment to next character in user input and save that value
+        addi $t0, $t0, 1
 
-        li $t0, 0       #reg 
+      
         li $t1, 0
 
         lw $t1, 0($sp)  #loading address of character array from stack pointer
@@ -159,6 +168,8 @@ main:
 
                 beq $t6, 10, check4CharactersArray   #if character is new line character character -> end of string, determine if its valid
                 beq $t6, 0, check4CharactersArray   #if character is null terminating character -> end of string, determine if its valid
+                beq $t6, 0, check4CharactersArray   #if character is null terminating character -> end of string, determine if its valid
+
 
                 beq $t6, 11, skip1   #if character is line tab -> skip
                 beq $t6, 9, skip1    #if character is char tab -> skip
@@ -171,6 +182,12 @@ main:
                 lb $t6, 0($t1)          #get next character from four bit array
 
                 j checkRemainingTrailingCharacters
+
+        invalidInput:
+            li $v0, 4       #selecting print function for syscall
+            la $a0, invalidInputString  #selecting address of string
+            syscall
+            j exitProgram
             
             # lb $t0, 0($t1)
 
