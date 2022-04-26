@@ -38,10 +38,8 @@ main:
             lw $t0, 0($sp)
             #   restore 4 bytes to stack pointer
             addi $sp, $sp, 4
-            
-    
 
-            li $t3, 0               #counter reg
+            li $t3, 0               #counter reg for substring
 
             # allocate 4 bytes for stack pointer 
             addi $sp, $sp, -4
@@ -69,6 +67,7 @@ main:
                 j loopParseSubstring
 
         sub_a_PRINT_VALUES:
+
             invalidInput:
                 li $t3, 0
                 li $v0, 4       #selecting print function for syscall
@@ -96,9 +95,7 @@ main:
     #   remember $t3 stores the amount of values in the current substring
     #   remember $T0 store the base address of the user input
 
-
-
-    # converts integers to valid characters
+    # converts valid character to integers
     sub_b:
         # store semi-colon
         sb $t1, array4characters($t3)
@@ -118,29 +115,28 @@ main:
             #increment for removeSpaces and Tabs
             li $t5, 0 
             
-
             removeSpacesAndTabs:
-            beq $t5, 1000, storeRealValues  #check if reached end of input
-            lb $t6, 0($t1)      #load single byte from user input into register $t6
+                beq $t5, 1000, storeRealValues  #check if reached end of input
+                lb $t6, 0($t1)      #load single byte from user input into register $t6
 
-            #       checks if there are any spaces
+                #       checks if there are any spaces
 
-            beq $t6, 11, skip   #if character is line tab -> skip
-            beq $t6, 9, skip    #if character is char tab -> skip
-            beq $t6, 32, skip   #if character is space    -> skip
+                beq $t6, 11, skip   #if character is line tab -> skip
+                beq $t6, 9, skip    #if character is char tab -> skip
+                beq $t6, 32, skip   #if character is space    -> skip
 
-            j storeRealValues   #once first real value is detected jump to store real values 
+                j storeRealValues   #once first real value is detected jump to store real values 
 
             skip:
 
-            addi $t5, $t5, 1 #increment loop index
-            addi $t1, $t1, 1 #increment index for array of user input characters
-            j removeSpacesAndTabs
+                addi $t5, $t5, 1 #increment loop index
+                addi $t1, $t1, 1 #increment index for array of user input characters
+                j removeSpacesAndTabs
 
 
-         storeRealValues:  
-            li $t4, 0                   #increment for store real values
-            #li $t3, 0                   #load address to store array of 4 bytes for the 4 real characters
+            storeRealValues:  
+                li $t4, 0                   #increment for store real values
+                #li $t3, 0                   #load address to store array of 4 bytes for the 4 real characters
 
             loopStoreRealValues:  
                 beq $t4, 4, checkRemainingTrailingCharacters        #check if increment is less than 4
@@ -189,20 +185,20 @@ main:
                   
             # lb $t0, 0($t1)
         check4CharactersArray:
-        li $t5, 0          #index of loop
+            li $t5, 0          #index of loop
 
-        li $t2, 0           #reg for storing the correct decimal value for characters
+            li $t2, 0           #reg for storing the correct decimal value for characters
 
-        #range for CAPITAL LETTERS 
-        addi $s3, $s1, 65
+            #range for CAPITAL LETTERS 
+            addi $s3, $s1, 65
 
-        #range for LOWERCASE LETTERS
-        addi $t3, $s1, 97
+            #range for LOWERCASE LETTERS
+            addi $t3, $s1, 97
 
-        #CHANGE $TO SO $S7 FROM HER
+            #CHANGE $TO SO $S7 FROM HER
 
-        #register for sum 
-        li $s7, 0
+            #register for sum 
+            li $s7, 0
 
         loop2:
             beq $t5, $t4, validInput     #once loop ends print answer
