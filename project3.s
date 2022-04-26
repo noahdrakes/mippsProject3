@@ -76,6 +76,7 @@ main:
 
                 # checks if program reaches the end
                 beq $t7, 5 , exitProgram
+                j printComma
             
             validInput: 
                 li $t3, 0
