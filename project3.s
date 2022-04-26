@@ -50,6 +50,8 @@ main:
             # store return address to the stack pointer
             sw $ra, 4($sp)
 
+            
+        
 
             li $t3, 0               #counter reg for substring
 
@@ -57,6 +59,12 @@ main:
             la $t2, array4characters
             #store that address to the stack pointer
             sw $t2, 0($sp)
+
+
+            # LOAD THE FIRST CHARACTER IN THE ARRAY AND CHECK IF ITS A NEW LINE CHARACTER
+            # IF IT IS, THEN WE DONE, EXIT THE PROGRAM
+            lb $t1, 0($t0)
+            beq $t1, 10, WE_DONE
 
             loopParseSubstring:
                 # load one character (one byte) to reg $t1
@@ -122,6 +130,8 @@ main:
 
     # converts valid character to integers
     sub_b:
+
+
         # store semi-colon
         sb $t1, array4characters($t3)
         
@@ -163,6 +173,7 @@ main:
                 li $t4, 0                   #increment for store real values
                 #li $t3, 0                   #load address to store array of 4 bytes for the 4 real characters
 
+
             loopStoreRealValues:  
                 beq $t4, 4, checkRemainingTrailingCharacters        #check if increment is less than 4
 
@@ -175,7 +186,7 @@ main:
 
                 beq $t6, 59, check4CharactersArray  #if character is semicolon -> end of string
                 beq $t6, 10, lastSubstring   #if character is new line character character -> end of string, determine if its valid
-                beq $t6, 0, lastSubstring   #if character is null terminating character -> end of string, determine if its valid
+                # beq $t6, 0, lastSubstring   #if character is null terminating character -> end of string, determine if its valid
                 
 
                 sb $t6, realSubstring($t4)                       #store valid characters in new array                   
@@ -191,7 +202,7 @@ main:
                 beq $t5, 1000, check4CharactersArray #loop condition -> once program has reached the 1000th character
 
                 beq $t6, 10, lastSubstring   #if character is new line character character -> end of string, determine if its valid
-                beq $t6, 0, lastSubstring   #if character is null terminating character -> end of string, determine if its valid
+                # beq $t6, 0, lastSubstring   #if character is null terminating character -> end of string, determine if its valid
                 beq $t6, 59, check4CharactersArray  #if character is semicolon -> end of string
 
 
@@ -226,6 +237,7 @@ main:
             li $s7, 0
 
         loop2:
+            beq $t4, $zero, invalidInput    #if not inputs than print invalid
             beq $t5, $t4, endSUB_B     #once loop ends print answer
             lb $t6, realSubstring($t5)       #get character from (potentially) valid character array
 
@@ -313,6 +325,10 @@ main:
 
 
 
+
+
+
+
     lastSubstring:
         # set $t7 to 5
         # if $t7 is 5 then that is the last substring
@@ -322,3 +338,8 @@ main:
 
 
     
+
+    WE_DONE:
+        # SETTING FLAG THAT THERE WAS NO INPUT
+        li $t7, 5
+        j invalidInput
