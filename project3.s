@@ -23,11 +23,17 @@ main:
     li $a1, 1001             #set amount of characters (bytes)
     syscall                 #execute previous instruction
 
+
     #   allocate 4 bytes for stack pointer
     addi $sp, $sp, -4
     #   store user input string to address 0 of stack pointer
     sw $a0, 0($sp)
 
+    jal sub_a
+
+    exitProgram:
+            li $v0, 10
+            syscall
 
 
     # sub_a checks for valid # of characters
@@ -39,10 +45,14 @@ main:
             #   restore 4 bytes to stack pointer
             addi $sp, $sp, 4
 
+            # make room for 8 bytes in the stack pointer
+            addi $sp, $sp, -8
+            # store return address to the stack pointer
+            sw $ra, 4($sp)
+
+
             li $t3, 0               #counter reg for substring
 
-            # allocate 4 bytes for stack pointer 
-            addi $sp, $sp, -4
             # load address for the character array
             la $t2, array4characters
             #store that address to the stack pointer
@@ -54,10 +64,22 @@ main:
 
                 # check to see if current character is semicolon
                 #if it is jump to 
-                beq $t1, 59, sub_b
+                beq $t1, 59, jumpToSub_B
                 # check for end-line character
-                beq $t1, 10, sub_b
+                beq $t1, 10, jumpToSub_B
 
+                j skip2
+
+                jumpToSub_B:
+                    
+                    jal sub_b
+                    lw $ra, 4($sp)
+                    lw $t2, 0($sp)
+                    j validInput   
+
+
+                
+                skip2:
                 #store character in substring array
                 sb $t1, array4characters($t3)
 
@@ -75,7 +97,7 @@ main:
                 syscall
 
                 # checks if program reaches the end
-                beq $t7, 5 , exitProgram
+                beq $t7, 5 , END_PRGORAM
                 j printComma
             
             validInput: 
@@ -85,13 +107,15 @@ main:
                 syscall
 
                 #checks if program reaches the end
-                beq $t7, 5 , exitProgram
+                beq $t7, 5 , END_PRGORAM
 
                 printComma:
                     li $v0, 4       #selecting print function for syscall
                     la $a0, comma  #selecting return register to print comma
                     syscall
                     j loopParseSubstring
+    END_PRGORAM:
+        jr $ra   
 
     #   remember $t3 stores the amount of values in the current substring
     #   remember $T0 store the base address of the user input
@@ -202,7 +226,7 @@ main:
             li $s7, 0
 
         loop2:
-            beq $t5, $t4, validInput     #once loop ends print answer
+            beq $t5, $t4, endSUB_B     #once loop ends print answer
             lb $t6, realSubstring($t5)       #get character from (potentially) valid character array
 
             beq $t6, 11, invalidInput   #if character is line tab -> jump to invalid Input
@@ -283,7 +307,11 @@ main:
                 addi $t1, $t1, 1        #   increment array index 
 
                 j loop2
-                
+
+    endSUB_B:           
+        jr $ra   
+
+
 
     lastSubstring:
         # set $t7 to 5
@@ -293,6 +321,4 @@ main:
         j check4CharactersArray
 
 
-    exitProgram:
-        li $v0, 10
-        syscall
+    
