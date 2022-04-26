@@ -9,13 +9,6 @@
 
 main:
 
-#   $s0 = M
-#   $s1 = N
-#   $a3 = characters from user input
-#   #t6 = new register for update user input without unnecessary spaces
-
-
-    
     li $t8, 12345678 #loading bison id
     li $t9, 11 #divisor
 
@@ -79,8 +72,10 @@ main:
             invalidInput:
                 li $t3, 0
                 li $v0, 4       #selecting print function for syscall
-                la $a0, invalidInputString  #selecting address of string
+                la $a0, invalidInputString  #selecting address of string to print dash
                 syscall
+
+                # checks if program reaches the end
                 beq $t7, 5 , exitProgram
             
             validInput: 
@@ -89,6 +84,7 @@ main:
                 move $a0, $s7  #selecting return register to print sum of substring
                 syscall
 
+                #checks if program reaches the end
                 beq $t7, 5 , exitProgram
 
                 printComma:
@@ -97,17 +93,8 @@ main:
                     syscall
                     j loopParseSubstring
 
-
-            #     j exitProgram
-
-
-            # j loopParseSubstring
-
-
-
     #   remember $t3 stores the amount of values in the current substring
     #   remember $T0 store the base address of the user input
-
 
 
 
@@ -119,11 +106,9 @@ main:
         #increment to next character in user input and save that value
         addi $t0, $t0, 1
 
-      
         li $t1, 0
 
         lw $t1, 0($sp)  #loading address of character array from stack pointer
-
 
         convert_To_Integers:
 
@@ -138,13 +123,11 @@ main:
             beq $t5, 1000, storeRealValues  #check if reached end of input
             lb $t6, 0($t1)      #load single byte from user input into register $t6
 
-
             #       checks if there are any spaces
 
             beq $t6, 11, skip   #if character is line tab -> skip
             beq $t6, 9, skip    #if character is char tab -> skip
             beq $t6, 32, skip   #if character is space    -> skip
-
 
             j storeRealValues   #once first real value is detected jump to store real values 
 
@@ -203,8 +186,7 @@ main:
                 lb $t6, 0($t1)          #get next character from four bit array
 
                 j checkRemainingTrailingCharacters
-            
-            
+                  
             # lb $t0, 0($t1)
         check4CharactersArray:
         li $t5, 0          #index of loop
@@ -216,7 +198,6 @@ main:
 
         #range for LOWERCASE LETTERS
         addi $t3, $s1, 97
-
 
         #CHANGE $TO SO $S7 FROM HER
 
@@ -307,9 +288,6 @@ main:
                 j loop2
                 
 
-
-
-
     lastSubstring:
         # set $t7 to 5
         # if $t7 is 5 then that is the last substring
@@ -318,19 +296,6 @@ main:
         j check4CharactersArray
 
 
-
-
     exitProgram:
         li $v0, 10
         syscall
-
-
-
-
-
-        # print register testing , putting at the bottom for 
-        # debugging purposes
-
-        # li $v0, 1       #selecting print function for syscall
-        # move $a0, $t8   #selecting return register to print out
-        # syscall
