@@ -71,20 +71,20 @@ main:
                 sb $t1, array4characters($t3)
 
                 addi $t3, $t3, 1
-                addi $t0, $t0, 1
-
-                
+                addi $t0, $t0, 1    
 
                 j loopParseSubstring
 
         sub_a_PRINT_VALUES:
             invalidInput:
+                li $t3, 0
                 li $v0, 4       #selecting print function for syscall
                 la $a0, invalidInputString  #selecting address of string
                 syscall
-                j exitProgram
+                beq $t7, 5 , exitProgram
             
             validInput: 
+                li $t3, 0
                 li $v0, 1       #selecting print function for syscall
                 move $a0, $s7  #selecting return register to print sum of substring
                 syscall
@@ -95,12 +95,13 @@ main:
                     li $v0, 4       #selecting print function for syscall
                     la $a0, comma  #selecting return register to print comma
                     syscall
+                    j loopParseSubstring
 
 
-                j exitProgram
+            #     j exitProgram
 
 
-            j loopParseSubstring
+            # j loopParseSubstring
 
 
 
@@ -302,7 +303,7 @@ main:
 
                 addi $t5, $t5, 1        #   increment index
                 addi $t1, $t1, 1        #   increment array index 
-                move $v1, $t0           # stores sum in return register
+
                 j loop2
                 
 
