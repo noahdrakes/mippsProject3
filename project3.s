@@ -320,6 +320,13 @@ main:
 
                 j loop2
 
+    lastSubstring:
+        # set $t7 to 5
+        # if $t7 is 5 then that is the last substring
+
+        li $t7, 5
+        j check4CharactersArray
+
     endSUB_B:           
         jr $ra   
 
@@ -329,12 +336,7 @@ main:
 
 
 
-    lastSubstring:
-        # set $t7 to 5
-        # if $t7 is 5 then that is the last substring
-
-        li $t7, 5
-        j check4CharactersArray
+    
 
 
     
