@@ -96,6 +96,11 @@ main:
 
                 j loopParseSubstring
 
+                WE_DONE:
+                    # SETTING FLAG THAT THERE WAS NO INPUT
+                    li $t7, 5
+                    j invalidInput
+
         sub_a_PRINT_VALUES:
 
             invalidInput:
@@ -341,7 +346,4 @@ main:
 
     
 
-    WE_DONE:
-        # SETTING FLAG THAT THERE WAS NO INPUT
-        li $t7, 5
-        j invalidInput
+    
